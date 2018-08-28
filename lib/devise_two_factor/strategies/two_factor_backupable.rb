@@ -12,7 +12,7 @@ module Devise
         end
 
         if resource.otp_required_for_login
-          return if params[scope].key?('otp_attempt')
+          return fail(:invalid_otp) if params[scope].key?('otp_attempt')
 
           unless validate(resource){ valid_otp_backup?(resource) }
             return fail!(:invalid_otp)
